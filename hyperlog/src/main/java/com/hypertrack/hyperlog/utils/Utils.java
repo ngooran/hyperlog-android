@@ -58,7 +58,6 @@ public class Utils {
             String dirPath = context.getExternalFilesDir(null).getAbsolutePath() + "/LogFiles";
 
             if (TextUtils.isEmpty(dirPath)) {
-                HyperLog.e(TAG, "Error occurred while getting directory");
                 return null;
             }
 
@@ -66,7 +65,6 @@ public class Utils {
             File filePath = new File(dirPath);
             if (!filePath.exists()) {
                 if (!filePath.mkdirs()) {
-                    HyperLog.e(TAG, "Error occurred while creating file.");
                     return null;
                 }
             }
@@ -79,7 +77,7 @@ public class Utils {
             return logFile;
 
         } catch (Exception e) {
-            HyperLog.exception(TAG, e);
+            e.printStackTrace();
         }
         return null;
     }

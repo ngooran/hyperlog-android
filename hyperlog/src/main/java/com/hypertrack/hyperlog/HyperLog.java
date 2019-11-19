@@ -492,8 +492,6 @@ public class HyperLog {
                 if (file != null) {
                     if (deleteLogs)
                         mDeviceLogList.clearDeviceLogs(deviceLogList);
-                    HyperLog.d(TAG, "Log File has been created at " +
-                            file.getAbsolutePath());
                 }
             }
             logsBatchCount--;
@@ -620,15 +618,12 @@ public class HyperLog {
             return;
 
         if (TextUtils.isEmpty(URL)) {
-            HyperLog.e(TAG, "API endpoint URL is missing. Set URL using " +
-                    "HyperLog.setURL method");
             return;
         }
 
         VolleyUtils.cancelPendingRequests(mContext, TAG);
 
         if (TextUtils.isEmpty(URL)) {
-            HyperLog.e(TAG, "URL is missing. Please set the URL to push the logs.");
             return;
         }
         if (!hasPendingDeviceLogs())
@@ -660,7 +655,6 @@ public class HyperLog {
                         public void onResponse(Object response) {
                             temp[0]--;
                             mDeviceLogList.clearDeviceLogs(deviceLogs);
-                            HyperLog.d(TAG, "Log has been pushed");
 
                             if (callback != null && temp[0] == 0) {
                                 if (isAllLogsPushed[0]) {
@@ -679,8 +673,6 @@ public class HyperLog {
                             isAllLogsPushed[0] = false;
                             temp[0]--;
                             error.printStackTrace();
-                            HyperLog.exception(TAG, "Error has occurred while pushing " +
-                                    "logs: ", error);
 
                             if (temp[0] == 0) {
                                 if (callback != null) {

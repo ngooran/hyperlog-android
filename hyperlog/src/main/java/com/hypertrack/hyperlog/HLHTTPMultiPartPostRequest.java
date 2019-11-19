@@ -106,10 +106,8 @@ class HLHTTPMultiPartPostRequest<T> extends Request<T> {
                 return compressed;
 
             } catch (Exception exception) {
-                HyperLog.e(TAG, "Exception occurred while getCompressed: " + exception);
                 mGzipEnabled = false;
             } catch (OutOfMemoryError error) {
-                HyperLog.e(TAG, "OutOfMemory Error occurred while getCompressed: " + error);
                 mGzipEnabled = false;
             }
         }
@@ -120,14 +118,12 @@ class HLHTTPMultiPartPostRequest<T> extends Request<T> {
     private byte[] getRequestBody(byte[] requestBody) {
         byte[] compressedRequestBody = getCompressed(requestBody);
         if (mGzipEnabled) {
-            HyperLog.d(TAG, "Compressed FileSize: " + compressedRequestBody.length + " Bytes");
             return compressedRequestBody;
         } else {
             try {
-                HyperLog.d(TAG, "Compressed FileSize: " + requestBody.length + " Bytes");
                 return requestBody;
             } catch (Exception exception) {
-                HyperLog.e(TAG, "Exception occurred while getRequestBody: " + exception);
+                exception.printStackTrace();
             }
         }
         return null;
@@ -156,7 +152,7 @@ class HLHTTPMultiPartPostRequest<T> extends Request<T> {
             is.close();
             return string.toString();
         } catch (Exception exception) {
-            HyperLog.e(TAG, "Exception occurred while getDecompressed: " + exception);
+            exception.printStackTrace();
         }
         return null;
     }
@@ -191,18 +187,6 @@ class HLHTTPMultiPartPostRequest<T> extends Request<T> {
 
         if (volleyError == null || volleyError.networkResponse == null)
             return super.parseNetworkError(volleyError);
-
-        try {
-            String json = new String(
-                    volleyError.networkResponse.data, HttpHeaderParser.parseCharset(volleyError.networkResponse.headers));
-
-            HyperLog.d(TAG, "Status Code: " + volleyError.networkResponse.statusCode +
-                    " Data: " + json);
-
-        } catch (Exception e) {
-            HyperLog.e(TAG, "Exception occurred while HTTPPatchRequest parseNetworkError: " + e, e);
-        }
-
         return super.parseNetworkError(volleyError);
     }
 
@@ -224,7 +208,6 @@ class HLHTTPMultiPartPostRequest<T> extends Request<T> {
 
     @Override
     protected void deliverResponse(T response) {
-        HyperLog.d(TAG, "deliverResponse: ");
         if (mListener != null && mListener.get() != null)
             mListener.get().onResponse(response);
     }
