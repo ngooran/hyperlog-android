@@ -78,7 +78,7 @@ class DeviceLogTable {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
             onCreate(db);
 
-            HyperLog.i(TAG, "DeviceLogTable onUpgrade called. Executing drop_table query to clear old logs.");
+            HyperLog.d(TAG, "DeviceLogTable onUpgrade called. Executing drop_table query to clear old logs.");
         } catch (Exception e) {
             e.printStackTrace();
             HyperLog.e(TAG, "DeviceLogTable: Exception occurred while onUpgrade: " + e);

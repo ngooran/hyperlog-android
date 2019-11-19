@@ -492,7 +492,7 @@ public class HyperLog {
                 if (file != null) {
                     if (deleteLogs)
                         mDeviceLogList.clearDeviceLogs(deviceLogList);
-                    HyperLog.i(TAG, "Log File has been created at " +
+                    HyperLog.d(TAG, "Log File has been created at " +
                             file.getAbsolutePath());
                 }
             }
@@ -660,7 +660,7 @@ public class HyperLog {
                         public void onResponse(Object response) {
                             temp[0]--;
                             mDeviceLogList.clearDeviceLogs(deviceLogs);
-                            HyperLog.i(TAG, "Log has been pushed");
+                            HyperLog.d(TAG, "Log has been pushed");
 
                             if (callback != null && temp[0] == 0) {
                                 if (isAllLogsPushed[0]) {

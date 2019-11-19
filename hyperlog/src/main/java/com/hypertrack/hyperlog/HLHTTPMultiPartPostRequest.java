@@ -120,11 +120,11 @@ class HLHTTPMultiPartPostRequest<T> extends Request<T> {
     private byte[] getRequestBody(byte[] requestBody) {
         byte[] compressedRequestBody = getCompressed(requestBody);
         if (mGzipEnabled) {
-            HyperLog.i(TAG, "Compressed FileSize: " + compressedRequestBody.length + " Bytes");
+            HyperLog.d(TAG, "Compressed FileSize: " + compressedRequestBody.length + " Bytes");
             return compressedRequestBody;
         } else {
             try {
-                HyperLog.i(TAG, "Compressed FileSize: " + requestBody.length + " Bytes");
+                HyperLog.d(TAG, "Compressed FileSize: " + requestBody.length + " Bytes");
                 return requestBody;
             } catch (Exception exception) {
                 HyperLog.e(TAG, "Exception occurred while getRequestBody: " + exception);
@@ -196,7 +196,7 @@ class HLHTTPMultiPartPostRequest<T> extends Request<T> {
             String json = new String(
                     volleyError.networkResponse.data, HttpHeaderParser.parseCharset(volleyError.networkResponse.headers));
 
-            HyperLog.i(TAG, "Status Code: " + volleyError.networkResponse.statusCode +
+            HyperLog.d(TAG, "Status Code: " + volleyError.networkResponse.statusCode +
                     " Data: " + json);
 
         } catch (Exception e) {
@@ -224,7 +224,7 @@ class HLHTTPMultiPartPostRequest<T> extends Request<T> {
 
     @Override
     protected void deliverResponse(T response) {
-        HyperLog.i(TAG, "deliverResponse: ");
+        HyperLog.d(TAG, "deliverResponse: ");
         if (mListener != null && mListener.get() != null)
             mListener.get().onResponse(response);
     }
